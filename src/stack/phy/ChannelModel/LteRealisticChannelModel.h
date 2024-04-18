@@ -209,6 +209,16 @@ protected:
   int oldTime_;
   int oldRsrq_;
 
+
+
+  //logs
+  std::string csv_filename_rcvSinrDl_;
+  std::string csv_filename_rcvSinrUl_;
+
+  std::string csv_filename_measSinrDl_;
+  std::string csv_filename_measSinrUl_;
+
+
 public:
   virtual void initialize(int stage);
 

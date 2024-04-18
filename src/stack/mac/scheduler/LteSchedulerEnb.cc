@@ -120,7 +120,7 @@ void LteSchedulerEnb::initialize(Direction dir, LteMacEnb* mac)
     auto ev = getSimulation()->getActiveEnvir();
     auto currentRun = ev->getConfigEx()->getActiveRunNumber();
 
-    auto log_level = "low";
+    auto log_level = "high";
     if (log_level=="high"){
 
             auto log_identifier = "logs/"+to_string(currentRun)+"/"; 
@@ -140,7 +140,7 @@ void LteSchedulerEnb::initialize(Direction dir, LteMacEnb* mac)
     std::vector<std::string> filenames = {csv_filename_avgServedBlocksDl_, csv_filename_avgServedBlocksUl_};
 
     // Header row for each file
-    std::string headerRow = "timestamp,avgServedBlocksDl,runNumber" ;
+    std::string headerRow = "timestamp,avgServedBlocks,runNumber" ;
 
     // Iterate through each filename and write the header if missing
     for (const auto& filename : filenames) {

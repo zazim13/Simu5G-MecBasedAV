@@ -24,7 +24,7 @@ import simu5g.nodes.NR.NRCarTrackable;
 import simu5g.nodes.mec.MECHost;
 import simu5g.nodes.mec.MECOrchestrator.MecOrchestrator;
 import simu5g.nodes.mec.UALCMP.UALCMP;
-import simu5g.nodes.cars.NRCar;
+//import simu5g.nodes.cars.NRCar;
 import org.car2x.veins.modules.world.annotations.AnnotationManager;
 import org.car2x.veins.visualizer.roads.RoadsCanvasVisualizer;
 

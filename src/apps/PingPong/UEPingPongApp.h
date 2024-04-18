@@ -34,7 +34,7 @@
 #include <fmt/format.h>
 
 #include "vehicular_mec.h"
-#include "veins_inet/VeinsInetMobility.h"
+//#include "veins_inet/VeinsInetMobility.h"
 #include "veins/modules/utility/TimerManager.h"
 #include "veins_inet/veins_inet.h"
 
