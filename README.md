@@ -15,3 +15,6 @@ This repo has the same requirements than Simu5G.
 - Build repo(attention to builder)
 ### CLI installation 
 - Make
+
+
+## Compatibility 
