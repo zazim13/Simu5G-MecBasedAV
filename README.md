@@ -7,14 +7,16 @@ This service is composed by a UEApplication and a MECApplication. Tunable parame
 This repo has the same requirements than Simu5G. 
 
 ## Installation 
-### Graphical installation 
+### Graphical installation (easy)
 - Clone repo
 - Import the repo
 - Add feature
 - Add reference
 - Build repo(attention to builder)
-### CLI installation 
-- Make
+### CLI installation (less easy)
+- . setenv
+- make makefiles 
+- make MODE=debug all (attention)
 
 
 ## Compatibility 
