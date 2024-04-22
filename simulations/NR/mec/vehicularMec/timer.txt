@@ -1,0 +1,3 @@
+STARTING
+Execution time for td was 64 seconds.
+Execution time  was 64 seconds.

@@ -920,13 +920,13 @@ std::vector<double> LteRealisticChannelModel::getSINR(LteAirFrame *frame, UserCo
            ueChannelModel->emit(recvPowerTxUl_,recvPowerTx_ );
            ueChannelModel->emit(attenuationPathLossUl_,attenuationPathLoss );
            ueChannelModel->emit(attenuationShadowingUl_, attenuationShadowing);
-           std::ifstream file(csv_filename_measSinrDl_);
+           std::ifstream file(csv_filename_measSinrUl_);
            if (file) {
 
                    auto ev_ = getSimulation()->getActiveEnvir();
                    auto runNumber = ev_->getConfigEx()->getActiveRunNumber();
                    ofstream myfile;
-                   myfile.open (csv_filename_measSinrDl_, ios::app);
+                   myfile.open (csv_filename_measSinrUl_, ios::app);
                    if(myfile.is_open()){
 
                        myfile  << simTime() << ","  <<sumSnr / usedRBs<<","<<usedRBs<<","<<sumSnr<< ","<< runNumber << endl;

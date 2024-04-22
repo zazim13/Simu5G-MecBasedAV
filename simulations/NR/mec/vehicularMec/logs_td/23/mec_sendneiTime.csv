@@ -1,0 +1,1 @@
+timestamp,ueAppPort,destination,packet_size_to_send(B),payload_size_to_send(B), idFrame, distance, neig,runNumber

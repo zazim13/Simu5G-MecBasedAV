@@ -1,17 +1,17 @@
  #! /bin/bash 
 cd ..
 
-use_case="cooperative_sensing"
+use_case="teleoperated_driving"
 echo "frequency,numerology,nb_vehicle,rb,edge_cpu,rep,runnumber">myparameters_$use_case.csv
-echo "frequency,numerology,nb_vehicle,rb,edge_cpu,rep,runnumber">/home/hakim/jupyter_dir/enhancing_paper/myparameters_$use_case.csv
+#echo "frequency,numerology,nb_vehicle,rb,edge_cpu,rep,runnumber">/home/hakim/jupyter_dir/enhancing_paper/myparameters_$use_case.csv
 
 
 frequency_list=("700MHz")
-numerology_list=("0" "1" "2" "3")
-rb_list=("35" "70" "139" "278" )
-rep_list=({0..5})
-number_vehicle_list=({0..10})  # Replace with your actual vehicle values
-edgeCPU_list=("2356230" "749070" "412090" "346350" "221720")  # Replace with your actual edge CPU values
+numerology_list=("0")
+rb_list=("50" "100" "150")
+rep_list=({0..2})
+number_vehicle_list=("1") 
+edgeCPU_list=("133740" "147600" "176170" "221720" "298190")  
 
 for frequency in "${frequency_list[@]}"
 do
@@ -29,7 +29,6 @@ do
                         if [ -f "$file" ]; then
                             runnumber=$(grep runnumber "$file" | cut -d" " -f3 | sed -n 1p)
                             echo $frequency,$numerology,$number_vehicle,$rb,$edgeCPU,$rep,$runnumber >> myparameters_$use_case.csv
-                            echo $frequency,$numerology,$number_vehicle,$rb,$edgeCPU,$rep,$runnumber >> /home/hakim/jupyter_dir/enhancing_paper/myparameters_$use_case.csv
 							echo $file
 						else
 							echo ..
