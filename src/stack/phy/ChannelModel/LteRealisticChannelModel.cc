@@ -169,11 +169,11 @@ void LteRealisticChannelModel::initialize(int stage)
            auto log_level = "high";
            if (log_level=="high"){
 
-           auto log_identifier = "logs/"+to_string(currentRun)+"/";
+           auto log_identifier = "logs/"+to_string(currentRun);
            if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
-               std::cout << "????????????????????? Directory created successfully.\n";
+               std::cout << " Directory created successfully.\n";
            } else {
-               std::cerr << "????????????????????? Error creating directory\n";
+               std::cerr << " Error creating directory\n";
            }
            csv_filename_rcvSinrDl_ = fmt::format("{}/rcvSinrDl_.csv",log_identifier);
            csv_filename_rcvSinrUl_ = fmt::format("{}/rcvSinrUl_.csv",log_identifier);
@@ -190,7 +190,7 @@ void LteRealisticChannelModel::initialize(int stage)
 
            // Iterate through each filename and write the header if missing
            for (const auto& filename : filenames) {
-               std::cout << "????????????????????? enterring loop.\n";
+               std::cout << " enterring loop.\n";
                // Open the CSV file in append mode. Create if nnot exist
                std::ofstream csvFile(filename, std::ios::out | std::ios::app);
 
@@ -199,20 +199,20 @@ void LteRealisticChannelModel::initialize(int stage)
                    std::cerr << "Error opening file " << filename << "!" << std::endl;
                    // error code??
                }
-               std::cout << "????????????????????? Check if the file is empty.\n";
+               std::cout << "Check if the file is empty.\n";
 
                // Check if the file is empty
                csvFile.seekp(0, std::ios::end);
                if (csvFile.tellp() == 0) {
                    // If the file is empty, write the header (first row)
-                   std::cout << "????????????????????? writting headers.\n";
+                   std::cout << "writting headers.\n";
 
                    csvFile << headerRow << std::endl;
                }
 
                // Close the file
                csvFile.close();}
-               std::cout << "????????????????????? Should be ok.\n";
+               std::cout << "Should be ok.\n";
 
 
 

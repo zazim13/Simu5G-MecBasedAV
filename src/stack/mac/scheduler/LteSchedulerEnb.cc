@@ -53,6 +53,71 @@ LteSchedulerEnb::LteSchedulerEnb()
     harqRxBuffers_ = 0;
     resourceBlocks_ = 0;
     utilization_ = 0;
+
+
+
+
+    // Logs 
+    //auto maxCpuSpeed_ = par("maxCpuSpeed");
+    //auto App_name_ = par("name").stringValue();      
+    //auto log_identifier = to_string(maxCpuSpeed_)+"and"+App_name_;
+
+    auto ev = getSimulation()->getActiveEnvir();
+    auto currentRun = ev->getConfigEx()->getActiveRunNumber();
+
+    auto log_level = "high";
+    if (log_level=="high"){
+
+            auto log_identifier = "logs/"+to_string(currentRun); 
+    if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
+        std::cout << " Directory created successfully.\n";
+    } else {
+        std::cerr << " Error creating directory\n";
+    }
+    csv_filename_avgServedBlocksDl_ = fmt::format("{}/avgServedBlocksDl_.csv",log_identifier);
+    csv_filename_avgServedBlocksUl_ = fmt::format("{}/avgServedBlocksUl_.csv",log_identifier);
+    csv_filename_test = fmt::format("{}/test.csv",log_identifier);
+    
+    
+
+
+        // List of CSV filenames
+    std::vector<std::string> filenames = {csv_filename_avgServedBlocksDl_, csv_filename_avgServedBlocksUl_};
+
+    // Header row for each file
+    std::string headerRow = "timestamp,avgServedBlocks,runNumber" ;
+
+    // Iterate through each filename and write the header if missing
+    for (const auto& filename : filenames) {
+        std::cout << "  enterring loop.\n";
+        // Open the CSV file in append mode. Create if nnot exist
+        std::ofstream csvFile(filename, std::ios::out | std::ios::app);
+
+        // Check if the file is open
+        if (!csvFile.is_open()) {
+            std::cerr << " Error opening file " << filename << "!" << std::endl;
+            // error code??
+        }
+        std::cout << currentRun+"$$$$$$$$$$$$$$$$$$$$$$$$$$$ Check if the file is empty.\n";
+
+        // Check if the file is empty
+        csvFile.seekp(0, std::ios::end);
+        if (csvFile.tellp() == 0) {
+            // If the file is empty, write the header (first row)
+            std::cout << currentRun+ "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ writting headers.\n";
+
+            csvFile << headerRow << std::endl;
+        }
+
+        // Close the file
+        csvFile.close();}
+        std::cout << currentRun + "$$$$$$$$$$$$$$$$$$$$$$$$$$$ Should be ok.\n";
+
+
+
+    }
+
+
 }
 
 LteSchedulerEnb& LteSchedulerEnb::operator=(const LteSchedulerEnb& other)
@@ -112,6 +177,9 @@ LteSchedulerEnb::~LteSchedulerEnb()
 
 void LteSchedulerEnb::initialize(Direction dir, LteMacEnb* mac)
 {
+    
+
+
     // Logs 
     //auto maxCpuSpeed_ = par("maxCpuSpeed");
     //auto App_name_ = par("name").stringValue();      
@@ -123,11 +191,11 @@ void LteSchedulerEnb::initialize(Direction dir, LteMacEnb* mac)
     auto log_level = "high";
     if (log_level=="high"){
 
-            auto log_identifier = "logs/"+to_string(currentRun)+"/"; 
+            auto log_identifier = "logs/"+to_string(currentRun); 
     if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
-        std::cout << "aaaaaaaaaa Directory created successfully.\n";
+        std::cout << " Directory created successfully.\n";
     } else {
-        std::cerr << "aaaaaaaaa Error creating directory\n";
+        std::cerr << " Error creating directory\n";
     }
     csv_filename_avgServedBlocksDl_ = fmt::format("{}/avgServedBlocksDl_.csv",log_identifier);
     csv_filename_avgServedBlocksUl_ = fmt::format("{}/avgServedBlocksUl_.csv",log_identifier);
@@ -144,35 +212,33 @@ void LteSchedulerEnb::initialize(Direction dir, LteMacEnb* mac)
 
     // Iterate through each filename and write the header if missing
     for (const auto& filename : filenames) {
-        std::cout << "aaaaaaaaaa enterring loop.\n";
+        std::cout << "  enterring loop.\n";
         // Open the CSV file in append mode. Create if nnot exist
         std::ofstream csvFile(filename, std::ios::out | std::ios::app);
 
         // Check if the file is open
         if (!csvFile.is_open()) {
-            std::cerr << "Error opening file " << filename << "!" << std::endl;
+            std::cerr << " Error opening file " << filename << "!" << std::endl;
             // error code??
         }
-        std::cout << "aaaaaaaaaa Check if the file is empty.\n";
+        std::cout << currentRun+"$$$$$$$$$$$$$$$$$$$$$$$$$$$ Check if the file is empty.\n";
 
         // Check if the file is empty
         csvFile.seekp(0, std::ios::end);
         if (csvFile.tellp() == 0) {
             // If the file is empty, write the header (first row)
-            std::cout << "aaaaaaaaaa writting headers.\n";
+            std::cout << currentRun+ "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ writting headers.\n";
 
             csvFile << headerRow << std::endl;
         }
 
         // Close the file
         csvFile.close();}
-        std::cout << "aaaaaaaaaa Should be ok.\n";
+        std::cout << currentRun + "$$$$$$$$$$$$$$$$$$$$$$$$$$$ Should be ok.\n";
 
 
 
     }
-
-
 
 
     direction_ = dir;
@@ -284,6 +350,72 @@ std::map<double, LteMacScheduleList>* LteSchedulerEnb::schedule()
  */
 unsigned int LteSchedulerEnb::scheduleGrant(MacCid cid, unsigned int bytes, bool& terminate, bool& active, bool& eligible, double carrierFrequency, BandLimitVector* bandLim, Remote antenna, bool limitBl)
 {
+
+
+    // Logs 
+    //auto maxCpuSpeed_ = par("maxCpuSpeed");
+    //auto App_name_ = par("name").stringValue();      
+    //auto log_identifier = to_string(maxCpuSpeed_)+"and"+App_name_;
+
+    auto ev = getSimulation()->getActiveEnvir();
+    auto currentRun = ev->getConfigEx()->getActiveRunNumber();
+
+    auto log_level = "high";
+    if (log_level=="high"){
+
+            auto log_identifier = "logs/"+to_string(currentRun); 
+    if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
+        std::cout << " Directory created successfully.\n";
+    } else {
+        std::cerr << " Error creating directory\n";
+    }
+    csv_filename_avgServedBlocksDl_ = fmt::format("{}/avgServedBlocksDl_.csv",log_identifier);
+    csv_filename_avgServedBlocksUl_ = fmt::format("{}/avgServedBlocksUl_.csv",log_identifier);
+    csv_filename_test = fmt::format("{}/test.csv",log_identifier);
+    
+    
+
+
+        // List of CSV filenames
+    std::vector<std::string> filenames = {csv_filename_avgServedBlocksDl_, csv_filename_avgServedBlocksUl_};
+
+    // Header row for each file
+    std::string headerRow = "timestamp,avgServedBlocks,runNumber" ;
+
+    // Iterate through each filename and write the header if missing
+    for (const auto& filename : filenames) {
+        std::cout << "  enterring loop.\n";
+        // Open the CSV file in append mode. Create if nnot exist
+        std::ofstream csvFile(filename, std::ios::out | std::ios::app);
+
+        // Check if the file is open
+        if (!csvFile.is_open()) {
+            std::cerr << " Error opening file " << filename << "!" << std::endl;
+            // error code??
+        }
+        std::cout << currentRun+"$$$$$$$$$$$$$$$$$$$$$$$$$$$ Check if the file is empty.\n";
+
+        // Check if the file is empty
+        csvFile.seekp(0, std::ios::end);
+        if (csvFile.tellp() == 0) {
+            // If the file is empty, write the header (first row)
+            std::cout << currentRun+ "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ writting headers.\n";
+
+            csvFile << headerRow << std::endl;
+        }
+
+        // Close the file
+        csvFile.close();}
+        std::cout << currentRun + "$$$$$$$$$$$$$$$$$$$$$$$$$$$ Should be ok.\n";
+
+
+
+    }
+
+
+
+
+
     // Get the node ID and logical connection ID
     MacNodeId nodeId = MacCidToNodeId(cid);
     LogicalCid flowId = MacCidToLcid(cid);
@@ -1211,7 +1343,7 @@ void LteSchedulerEnb::resourceBlockStatistics(bool sleep)
         mac_->emit(avgServedBlocksUl_, allocatedBlocks);
 
 
-        std::ifstream file(csv_filename_avgServedBlocksDl_);
+        std::ifstream file(csv_filename_avgServedBlocksUl_);
         if (file) {
                     if (allocatedBlocks != 0.0) {
                 auto ev_ = getSimulation()->getActiveEnvir();

@@ -310,7 +310,7 @@ void MECPingPongApp::initialize(int stage)
     auto currentRun = ev->getConfigEx()->getActiveRunNumber();
    // auto nb_vehicles = par("nb_vehicles").stringValue();
     
-    auto log_identifier = "logs/"+to_string(currentRun)+"/";
+    auto log_identifier = "logs/"+to_string(currentRun);
    // Use the create_directory function to create the directory
    if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
         std::cout << "Directory created successfully.\n";
@@ -506,8 +506,8 @@ void MECPingPongApp::handleUeMessage(omnetpp::cMessage *msg)
                      emit( mecapp_ul_delaySignal,  simTime() - pk->getCreationTime() );
 
 
-
-                     sendPingPacket(msg);
+                        // Uncomment if downlink considered
+                     //sendPingPacket(msg);
 
 
 

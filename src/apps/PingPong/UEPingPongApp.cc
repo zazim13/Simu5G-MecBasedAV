@@ -122,7 +122,7 @@ void UEPingPongApp::initialize(int stage)
     //log_identifier = par('mecAppName').stringValue();
     auto ev = getSimulation()->getActiveEnvir();
     auto currentRun = ev->getConfigEx()->getActiveRunNumber();    
-    auto log_identifier = "logs/"+to_string(currentRun)+"/";
+    auto log_identifier = "logs/"+to_string(currentRun);
     // Use the create_directory function to create the directory
    if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
         std::cout << "Directory created successfully.\n";

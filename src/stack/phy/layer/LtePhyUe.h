@@ -133,6 +133,10 @@ class LtePhyUe : public LtePhyBase
     virtual void triggerHandover();
     virtual void doHandover();
 
+    //logs
+    std::string csv_filename_cqiDl_ ;
+    std::string csv_filename_cqiUl_;
+
   public:
     LtePhyUe();
     virtual ~LtePhyUe();

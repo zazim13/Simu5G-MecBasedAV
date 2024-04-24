@@ -16,6 +16,25 @@
 #include "stack/phy/packet/LteFeedbackPkt.h"
 #include "stack/phy/feedback/LteDlFeedbackGenerator.h"
 
+
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <map>
+#include <fmt/format.h>
+#include "spdlog/spdlog.h"  // logging library
+#include "spdlog/sinks/basic_file_sink.h"
+#include <ctime>
+#include <fmt/format.h>
+#include <filesystem>
+#include <sys/stat.h>
+
+#include <vector>
+using namespace std;
+using namespace omnetpp;
+
+
+
 Define_Module(LtePhyUe);
 
 using namespace inet;
@@ -235,6 +254,68 @@ void LtePhyUe::initialize(int stage)
         else
             cellInfo_ = NULL;
     }
+
+
+    // Logs
+           //auto maxCpuSpeed_ = par("maxCpuSpeed");
+           //auto App_name_ = par("name").stringValue();
+           //auto log_identifier = to_string(maxCpuSpeed_)+"and"+App_name_;
+
+           auto ev = getSimulation()->getActiveEnvir();
+           auto currentRun = ev->getConfigEx()->getActiveRunNumber();
+
+           auto log_level = "high";
+           if (log_level=="high"){
+
+           auto log_identifier = "logs/"+to_string(currentRun);
+           if (mkdir(log_identifier.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0) {
+               std::cout << " Directory created successfully.\n";
+           } else {
+               std::cerr << " Error creating directory\n";
+           }
+           csv_filename_cqiDl_ = fmt::format("{}/cqiDl_.csv",log_identifier);
+           csv_filename_cqiUl_ = fmt::format("{}/cqiUl_.csv",log_identifier);
+
+
+
+
+               // List of CSV filenames
+           std::vector<std::string> filenames = {csv_filename_cqiDl_, csv_filename_cqiUl_};
+
+           // Header row for each file
+           std::string headerRow = "timestamp,cqi,runNumber" ;
+
+           // Iterate through each filename and write the header if missing
+           for (const auto& filename : filenames) {
+               std::cout << " enterring loop.\n";
+               // Open the CSV file in append mode. Create if nnot exist
+               std::ofstream csvFile(filename, std::ios::out | std::ios::app);
+
+               // Check if the file is open
+               if (!csvFile.is_open()) {
+                   std::cerr << "Error opening file " << filename << "!" << std::endl;
+                   // error code??
+               }
+               std::cout << " Check if the file is empty.\n";
+
+               // Check if the file is empty
+               csvFile.seekp(0, std::ios::end);
+               if (csvFile.tellp() == 0) {
+                   // If the file is empty, write the header (first row)
+                   std::cout << "writting headers.\n";
+
+                   csvFile << headerRow << std::endl;
+               }
+
+               // Close the file
+               csvFile.close();}
+               std::cout << " Should be ok.\n";
+
+
+
+           }
+
+
 }
 
 void LtePhyUe::handleSelfMessage(cMessage *msg)
@@ -587,6 +668,21 @@ void LtePhyUe::handleAirFrame(cMessage* msg)
         double cqi = lteInfo->getUserTxParams()->readCqiVector()[cw];
         emit(averageCqiDl_, cqi);
         recordCqi(cqi, DL);
+
+                   std::ifstream file(csv_filename_cqiDl_);
+                   if (file) {
+
+                           auto ev_ = getSimulation()->getActiveEnvir();
+                           auto runNumber = ev_->getConfigEx()->getActiveRunNumber();
+                           ofstream myfile;
+                           myfile.open (csv_filename_cqiDl_, ios::app);
+                           if(myfile.is_open()){
+
+                               myfile  << simTime() << ","  <<averageCqiDl_<< ","<< runNumber << endl;
+                               myfile.close();
+                           }
+                       }
+        
     }
     // apply decider to received packet
     bool result = true;
@@ -683,6 +779,21 @@ void LtePhyUe::handleUpperMessage(cMessage* msg)
         {
             emit(averageCqiUl_, cqi);
             recordCqi(cqi, UL);
+
+                std::ifstream file(csv_filename_cqiUl_);
+                if (file) {
+
+                        auto ev_ = getSimulation()->getActiveEnvir();
+                        auto runNumber = ev_->getConfigEx()->getActiveRunNumber();
+                        ofstream myfile;
+                        myfile.open (csv_filename_cqiUl_, ios::app);
+                        if(myfile.is_open()){
+
+                            myfile  << simTime() << ","  <<averageCqiUl_<< ","<< runNumber << endl;
+                            myfile.close();
+                        }
+                    }
+
         }
         else if (lteInfo->getDirection() == D2D)
             emit(averageCqiD2D_, cqi);
