@@ -1,5 +1,6 @@
 TODO: write tutorial
 
+#  README
 
 This repository is a forked from Simu5G(https://github.com/Unipisa/Simu5G.git) project.
 We add a scenario featuring Connected vehicles and MEC. We implemented a parametric "vehiclar" service aiming to mimic the behaviour of real world "application".
@@ -21,7 +22,7 @@ The parameters of this service can be change in order to adapt to experimenteur 
 
 ## Our Model 
 
-![Model](illustrations/model.png)
+![Model](illustrations/system.png)
 
 
 
