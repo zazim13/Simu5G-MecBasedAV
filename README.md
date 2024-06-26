@@ -28,12 +28,6 @@ The parameters of this service can be change in order to adapt to experimenteur 
 ![Model](illustrations/system.png)
 
 
-
-## Our Goal
-
-![image](illustrations/goal.png)
-
-
 ## Exemple of simulations
 
 Here is the default example:
