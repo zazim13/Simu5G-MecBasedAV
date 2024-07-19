@@ -289,8 +289,8 @@ void UEPingPongApp::handleMessage(cMessage *msg)
                 time_to_wait_d= exponentialGenerator(10);
                 }
             else {
-                //time_to_wait_d = par("interReqTime").doubleValue();
-                time_to_wait_d = 0.1;
+                time_to_wait_d = par("interReqTime").doubleValue();
+                //time_to_wait_d = 0.1;
             }
 
             simtime_t time_to_wait {time_to_wait_d};
@@ -642,9 +642,9 @@ void UEPingPongApp::sendPingPacket(simtime_t interReqTime) {
     else {
 
         
-        payload = exponentialGenerator(1.0 / 40000);
+        //payload = exponentialGenerator(1.0 / 40000);
         
-        //payload = payloadSize_ ;
+        payload = payloadSize_ ;
         //payload = exponentialGenerator(0.0001) ;
         
     }
