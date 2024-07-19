@@ -39,13 +39,13 @@ Here is the default example:
 This repo has the same requirements than Simu5G. 
 
 ## Installation 
-### Graphical installation (easy)
+### Graphical installation 
 - Clone repo
 - Import the repo
 - Add feature
 - Add reference
 - Build repo(attention to builder)
-### CLI installation (less easy)
+### CLI installation
 - . setenv
 - make makefiles 
 - make MODE=debug all (attention)
