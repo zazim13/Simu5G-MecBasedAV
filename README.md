@@ -12,6 +12,11 @@ The parameters of this service can be change in order to adapt to experimenteur 
 
 - Uplink
   - payload size --> The size of the payload at the applicaiton level
+       - Can be modified href="http://github.com/user/project/blob/master/Readme.md#my-anchor">here</a> 
+       
+         https://github.com/zazim13/Simu5G-MecBasedAV/blob/46be7c3a4f5ccf6b3a294887d2605b4873e6392a/src/apps/PingPong/UEPingPongApp.cc#L642
+       - Or in the ini file directly here.
+         https://github.com/zazim13/Simu5G-MecBasedAV/blob/5284bb357f1e9413ce2399cb2ba85387022a1069/simulations/NR/mec/vehicularMec/omnetpp.ini#L268
   - Inter sending time 
 - Downlink
   - payload size --> The size of the payload at the applicaiton level
